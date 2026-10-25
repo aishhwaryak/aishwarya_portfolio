@@ -16,22 +16,20 @@
 :root {
     --bg: #0a0a14;
     --panel: #11111f;
-    --panel2: #171729;
     --text: #f4f2ff;
     --muted: #a09db7;
     --purple: #9b7bff;
-    --violet: #7650f8;
     --cyan: #55e6df;
-    --border: rgba(185,170,255,.16);
-    --gradient: linear-gradient(120deg,#9b7bff,#5ee7df);
+    --pink: #ff75c3;
+    --border: rgba(185,170,255,.18);
+    --gradient: linear-gradient(120deg,#9b7bff,#ff75c3,#5ee7df);
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'DM Sans',sans-serif;
     line-height: 1.7;
     overflow-x: hidden;
 }
@@ -39,21 +37,23 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: -2;
+    z-index: -1;
     pointer-events: none;
     background:
-      radial-gradient(ellipse at 12% 10%,rgba(111,67,255,.13),transparent 35%),
-      radial-gradient(ellipse at 90% 45%,rgba(35,209,208,.07),transparent 35%);
+      radial-gradient(ellipse at 12% 10%,rgba(111,67,255,.18),transparent 35%),
+      radial-gradient(ellipse at 90% 45%,rgba(35,209,208,.10),transparent 35%),
+      radial-gradient(ellipse at 55% 90%,rgba(255,75,175,.08),transparent 35%);
 }
 a { color: inherit; text-decoration: none; }
-button { font: inherit; }
+button { font: inherit; cursor: pointer; }
 .container { width: min(1140px,88%); margin: auto; }
+h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
 
 header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(10,10,20,.82);
+    background: rgba(10,10,20,.92);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255,255,255,.07);
 }
@@ -70,30 +70,21 @@ nav {
     font-weight: 700;
     letter-spacing: -.8px;
 }
-.brand span { color: var(--cyan); }
+.brand span { color: var(--pink); }
 .navlinks { display: flex; align-items: center; gap: 27px; }
-.navlinks a {
-    color: #c4c1d7;
-    font-size: 12px;
-    transition: .25s;
-}
+.navlinks a { color: #c4c1d7; font-size: 12px; transition: .25s; }
 .navlinks a:hover { color: var(--cyan); }
-.nav-cta {
-    border: 1px solid rgba(155,123,255,.5);
-    border-radius: 8px;
-    padding: 9px 14px;
-}
+.nav-cta { border: 1px solid rgba(155,123,255,.5); border-radius: 8px; padding: 9px 14px; }
 .menu {
     display: none;
-    background: var(--panel2);
+    background: #171729;
     border: 1px solid var(--border);
     color: white;
     border-radius: 8px;
     padding: 7px 11px;
-    cursor: pointer;
 }
 
-.hero { position: relative; padding: 105px 0 95px; }
+.hero { padding: 105px 0 95px; }
 .hero-grid {
     display: grid;
     grid-template-columns: 1.2fr .8fr;
@@ -118,6 +109,7 @@ nav {
     border-radius: 50%;
     background: var(--cyan);
     box-shadow: 0 0 12px var(--cyan);
+    animation: pulse 1.8s infinite;
 }
 .kicker {
     color: var(--cyan);
@@ -126,7 +118,6 @@ nav {
     font-weight: 700;
     text-transform: uppercase;
 }
-h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
 .hero h1 {
     font-size: clamp(43px,6vw,76px);
     letter-spacing: -3.5px;
@@ -134,22 +125,15 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
     margin: 20px 0;
 }
 .gradient-text {
-    background: linear-gradient(105deg,#c5b4ff 5%,#9271ff 48%,#61e8e1 100%);
+    background: var(--gradient);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    animation: gradientMove 5s ease infinite;
 }
-.hero h2 {
-    font-size: 18px;
-    font-weight: 500;
-    color: #d6d1e9;
-    margin-bottom: 17px;
-}
-.hero-copy {
-    color: var(--muted);
-    max-width: 580px;
-    font-size: 14px;
-}
+.hero h2 { font-size: 18px; font-weight: 500; color: #d6d1e9; margin-bottom: 17px; }
+.hero-copy { color: var(--muted); max-width: 580px; font-size: 14px; }
 .actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
 .btn {
     display: inline-flex;
@@ -160,21 +144,15 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
     border-radius: 9px;
     font-size: 12px;
     font-weight: 700;
-    transition: transform .25s, box-shadow .25s, border-color .25s;
+    transition: transform .25s, box-shadow .25s;
 }
 .btn:hover { transform: translateY(-3px); }
 .btn-primary {
     color: #100e1b;
     background: var(--gradient);
-    box-shadow: 0 6px 25px rgba(121,91,245,.2);
+    box-shadow: 0 6px 25px rgba(121,91,245,.25);
 }
-.btn-primary:hover { box-shadow: 0 9px 32px rgba(121,91,245,.38); }
-.btn-secondary {
-    color: #e7e3f8;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,.025);
-}
-.btn-secondary:hover { border-color: var(--purple); }
+.btn-secondary { color: #e7e3f8; border: 1px solid var(--border); background: rgba(255,255,255,.025); }
 .hero-tech { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 29px; }
 .hero-tech span {
     color: #c7c1df;
@@ -191,10 +169,10 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
     height: 112%;
     top: -6%;
     left: -6%;
-    border: 1px solid rgba(155,123,255,.2);
+    border: 1px solid rgba(155,123,255,.3);
     border-radius: 50%;
-    transform: rotate(-25deg);
     pointer-events: none;
+    animation: orbitSpin 18s linear infinite;
 }
 .orbit::after {
     content: "";
@@ -211,34 +189,25 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
     position: relative;
     padding: 12px;
     border-radius: 24px;
-    background: linear-gradient(145deg,rgba(155,123,255,.45),rgba(94,231,223,.16));
-    border: 1px solid rgba(192,178,255,.35);
-    box-shadow: 0 25px 90px rgba(0,0,0,.4),0 0 65px rgba(118,80,248,.12);
-    transform: rotate(2deg);
+    background: linear-gradient(145deg,rgba(155,123,255,.55),rgba(255,117,195,.18),rgba(94,231,223,.2));
+    border: 1px solid rgba(192,178,255,.4);
+    box-shadow: 0 25px 90px rgba(0,0,0,.4),0 0 65px rgba(118,80,248,.18);
+    animation: float 5s ease-in-out infinite;
 }
 .photo-inner {
     position: relative;
     aspect-ratio: 4 / 4.7;
     overflow: hidden;
     border-radius: 16px;
-    background:
-      radial-gradient(circle at 50% 25%,#43326d,transparent 40%),
-      linear-gradient(145deg,#211b38,#11111f);
+    background: linear-gradient(145deg,#211b38,#11111f);
 }
-.photo-inner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 35%;
-    display: block;
-}
+.photo-inner img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: block; }
 .photo-placeholder {
     position: absolute;
     inset: 0;
     display: grid;
     place-items: center;
     color: #d5caff;
-    font-family: 'Space Grotesk',sans-serif;
     font-size: 72px;
     font-weight: 700;
     background: radial-gradient(circle,#382b60,#141321 72%);
@@ -249,10 +218,8 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
     bottom: 27px;
     padding: 13px 17px;
     border: 1px solid var(--border);
-    background: rgba(18,17,32,.91);
-    backdrop-filter: blur(15px);
+    background: rgba(18,17,32,.95);
     border-radius: 12px;
-    box-shadow: 0 12px 30px #0005;
 }
 .photo-label strong { display: block; font-size: 12px; }
 .photo-label span { color: var(--cyan); font-size: 10px; }
@@ -264,9 +231,7 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
     background: rgba(20,19,37,.95);
     border: 1px solid var(--border);
     border-radius: 12px;
-    color: #e1dcf6;
     font-size: 11px;
-    box-shadow: 0 10px 30px #0003;
 }
 
 .section { padding: 95px 0; }
@@ -277,12 +242,7 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
 }
 .section-head { max-width: 650px; margin-bottom: 40px; }
 .section-head.center { text-align: center; margin-left: auto; margin-right: auto; }
-.section-title {
-    font-size: clamp(30px,4vw,45px);
-    letter-spacing: -1.7px;
-    line-height: 1.2;
-    margin-top: 10px;
-}
+.section-title { font-size: clamp(30px,4vw,45px); letter-spacing: -1.7px; line-height: 1.2; margin-top: 10px; }
 .section-desc { margin-top: 13px; color: var(--muted); font-size: 13px; }
 
 .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 65px; align-items: start; }
@@ -296,39 +256,21 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
 .about-panel p,.about-text p { color: var(--muted); font-size: 13px; margin-bottom: 15px; }
 .about-text p:last-child { margin-bottom: 0; }
 .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 11px; margin-top: 23px; }
-.stat {
-    padding: 15px 10px;
-    border-radius: 11px;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,.025);
-}
-.stat strong { display: block; font-family: 'Space Grotesk',sans-serif; font-size: 20px; color: var(--cyan); }
+.stat { padding: 15px 10px; border-radius: 11px; border: 1px solid var(--border); background: rgba(255,255,255,.025); }
+.stat strong { display: block; font-size: 20px; color: var(--cyan); }
 .stat span { font-size: 10px; color: var(--muted); }
 
 .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
 .skill {
-    position: relative;
-    overflow: hidden;
     border: 1px solid var(--border);
     border-radius: 15px;
     padding: 23px;
     background: linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.012));
     transition: .3s;
 }
-.skill::after {
-    content: "";
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: rgba(130,97,255,.13);
-    filter: blur(24px);
-    right: -25px;
-    top: -25px;
-}
 .skill:hover,.project:hover,.edu:hover {
-    transform: translateY(-5px);
-    border-color: rgba(155,123,255,.55);
+    transform: translateY(-6px);
+    border-color: rgba(255,117,195,.6);
     box-shadow: 0 15px 35px #0003;
 }
 .skill-icon {
@@ -347,24 +289,27 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
 .skill h3 { font-size: 16px; margin-bottom: 6px; }
 .skill p { color: var(--muted); font-size: 11px; }
 
-.project-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+.project-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
 .project {
     display: flex;
     flex-direction: column;
-    min-height: 340px;
-    padding: 23px;
+    min-height: 300px;
+    padding: 25px;
     border: 1px solid var(--border);
     border-radius: 17px;
-    background: linear-gradient(150deg,rgba(255,255,255,.04),rgba(255,255,255,.012));
-    transition: .3s;
+    background: radial-gradient(ellipse at top right,rgba(155,123,255,.11),transparent 50%),linear-gradient(150deg,rgba(255,255,255,.04),rgba(255,255,255,.012));
+    transition: transform .3s,border-color .3s,box-shadow .3s;
+    position: relative;
+    overflow: hidden;
 }
+.project::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--gradient); }
 .project-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
-.project-no { font-family: 'Space Grotesk',sans-serif; font-size: 29px; color: #6c5a9f; }
+.project-no { font-size: 29px; color: #8e79c4; }
 .project-type { font-size: 9px; color: var(--cyan); border: 1px solid rgba(85,230,223,.2); border-radius: 30px; padding: 5px 9px; }
-.project h3 { font-size: 18px; margin-bottom: 12px; }
+.project h3 { font-size: 19px; margin-bottom: 12px; }
 .project p { color: var(--muted); font-size: 12px; }
 .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 19px 0; }
-.tags span { font-size: 9px; color: #d0c4ff; padding: 5px 8px; background: rgba(155,123,255,.1); border-radius: 5px; }
+.tags span { font-size: 9px; color: #d0c4ff; padding: 5px 8px; background: rgba(155,123,255,.1); border: 1px solid rgba(155,123,255,.15); border-radius: 5px; }
 .project-bottom { margin-top: auto; padding-top: 15px; border-top: 1px solid rgba(255,255,255,.07); color: #c3b4ff; font-size: 11px; }
 
 .education-list { max-width: 850px; margin: auto; display: grid; gap: 15px; }
@@ -391,12 +336,10 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
     padding: 42px;
     border-radius: 23px;
     border: 1px solid rgba(155,123,255,.25);
-    background:
-      radial-gradient(ellipse at 0 0,rgba(118,80,248,.19),transparent 45%),
-      linear-gradient(140deg,#141326,#10101d);
+    background: radial-gradient(ellipse at 0 0,rgba(118,80,248,.19),transparent 45%),linear-gradient(140deg,#141326,#10101d);
 }
 .contact-box h2 { font-size: clamp(28px,4vw,40px); line-height: 1.2; margin: 12px 0; }
-.contact-box .contact-intro { color: var(--muted); font-size: 13px; margin-bottom: 23px; }
+.contact-intro { color: var(--muted); font-size: 13px; margin-bottom: 23px; }
 .contact-links { display: grid; gap: 10px; }
 .contact-item {
     display: block;
@@ -407,7 +350,7 @@ h1,h2,h3,h4 { font-family: 'Space Grotesk',sans-serif; }
     transition: .25s;
     overflow-wrap: anywhere;
 }
-.contact-item:hover { border-color: var(--purple); }
+a.contact-item:hover { border-color: var(--pink); transform: translateX(3px); }
 .contact-item span { display: block; color: var(--muted); font-size: 10px; }
 .contact-item strong { display: block; color: #e9e5ff; font-size: 12px; font-weight: 500; }
 
@@ -418,16 +361,21 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 25px 0; }
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease,transform .65s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-@media (max-width: 850px) {
+@keyframes float { 0%,100% { transform: translateY(0) rotate(2deg); } 50% { transform: translateY(-10px) rotate(0deg); } }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(85,230,223,.5); } 50% { box-shadow: 0 0 0 7px rgba(85,230,223,0); } }
+@keyframes orbitSpin { from { rotate: 0deg; } to { rotate: 360deg; } }
+@keyframes gradientMove { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+
+@media (max-width:850px) {
     .hero-grid { gap: 35px; }
     .hero h1 { letter-spacing: -2px; }
     .navlinks { gap: 14px; }
     .navlinks a { font-size: 11px; }
     .about-grid { gap: 28px; }
-    .project-grid { grid-template-columns: 1fr 1fr; }
+    .skills-grid { grid-template-columns: repeat(2,1fr); }
     .contact-box { padding: 28px; gap: 25px; }
 }
-@media (max-width: 650px) {
+@media (max-width:650px) {
     .container { width: 91%; }
     nav { min-height: 70px; flex-wrap: wrap; }
     .menu { display: block; }
@@ -450,7 +398,7 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 25px 0; }
     .edu { grid-template-columns: 1fr; gap: 7px; padding: 19px; }
     .footer-inner { flex-wrap: wrap; }
 }
-@media (max-width: 390px) {
+@media (max-width:390px) {
     .skills-grid,.project-grid { grid-template-columns: 1fr; }
     .hero h1 { font-size: 41px; }
     .stat-grid { gap: 6px; }
@@ -458,8 +406,8 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 25px 0; }
     .photo-label { left: -10px; }
     .float-tag { right: -10px; }
 }
-@media (prefers-reduced-motion: reduce) {
-    *,*::before,*::after { scroll-behavior: auto !important; transition: none !important; }
+@media (prefers-reduced-motion:reduce) {
+    *,*::before,*::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
     .reveal { opacity: 1; transform: none; }
 }
 </style>
@@ -496,14 +444,13 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 25px 0; }
                 learn from experienced developers, and grow in the IT industry.
             </p>
             <div class="actions">
-                <a href="#projects" class="btn btn-primary">Explore my work <span>↗</span></a>
+                <a href="#projects" class="btn btn-primary">Explore my work ↗</a>
                 <a href="#contact" class="btn btn-secondary">Contact me</a>
             </div>
             <div class="hero-tech">
                 <span>JAVA</span><span>SQL</span><span>HTML & CSS</span><span>JAVASCRIPT</span>
             </div>
         </div>
-
         <div class="visual reveal">
             <div class="orbit"></div>
             <div class="photo-card">
@@ -513,10 +460,7 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 25px 0; }
                     <div class="photo-placeholder" id="photoFallback" style="display:none">AK</div>
                 </div>
             </div>
-            <div class="photo-label">
-                <strong>Aishwarya Karle</strong>
-                <span>Java · Web Development</span>
-            </div>
+            <div class="photo-label"><strong>Aishwarya Karle</strong><span>Java · Web Development</span></div>
             <div class="float-tag">✦ Learning by building</div>
         </div>
     </div>
@@ -530,18 +474,8 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 25px 0; }
             <p class="section-desc">Building my foundation one project at a time.</p>
         </div>
         <div class="about-text reveal">
-            <p>
-                I’m pursuing a Master of Computer Applications at Savitribai
-                Phule Pune University after completing my Bachelor's in Computer
-                Science. I’m interested in Java development, databases, and
-                creating user-friendly web experiences.
-            </p>
-            <p>
-                I value consistent learning, time management, and teamwork.
-                Through academic and practice projects, I’m working to improve
-                my programming fundamentals and turn concepts into practical
-                applications.
-            </p>
+            <p>I’m pursuing a Master of Computer Applications at Savitribai Phule Pune University after completing my Bachelor's in Computer Science. I’m interested in Java development, databases, and creating user-friendly web experiences.</p>
+            <p>I value consistent learning, time management, and teamwork. Through academic and practice projects, I’m working to improve my programming fundamentals and turn concepts into practical applications.</p>
             <div class="stat-grid">
                 <div class="stat"><strong>2027</strong><span>MCA expected</span></div>
                 <div class="stat"><strong>Java</strong><span>Core focus</span></div>
@@ -574,30 +508,62 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 25px 0; }
         <div class="section-head reveal">
             <p class="kicker">SELECTED WORK</p>
             <h2 class="section-title">Projects that reflect <span class="gradient-text">my journey.</span></h2>
-            <p class="section-desc">Academic and learning projects. Keep each description aligned with what you have actually implemented.</p>
+            <p class="section-desc">Academic and learning projects built as I develop my skills.</p>
         </div>
         <div class="project-grid">
             <article class="project reveal">
-                <div class="project-head"><span class="project-no">01</span><span class="project-type">ACADEMIC</span></div>
+                <div class="project-head"><span class="project-no">01</span><span class="project-type">WEB APPLICATION</span></div>
+                <h3>Student Management System</h3>
+                <p>A student record application designed to manage student registration and view student information. Update this description to match the features you have completed.</p>
+                <div class="tags"><span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span></div>
+                <div class="project-bottom">Focus · Student records and CRUD</div>
+            </article>
+            <article class="project reveal">
+                <div class="project-head"><span class="project-no">02</span><span class="project-type">ACADEMIC</span></div>
                 <h3>Library Management System</h3>
-                <p>A library interface project focused on presenting book information and organising library-related records. My contribution focused on front-end development.</p>
+                <p>A library project for presenting book information and organising library-related records. My contribution focused on the interface and project structure.</p>
                 <div class="tags"><span>HTML</span><span>CSS</span><span>MySQL</span></div>
-                <div class="project-bottom">Role · Front-end development ↗</div>
+                <div class="project-bottom">Focus · Library record management</div>
             </article>
             <article class="project reveal">
-                <div class="project-head"><span class="project-no">02</span><span class="project-type">LEARNING PROJECT</span></div>
-                <h3>AI Chat Assistant</h3>
-                <p>A learning project exploring a chat-style interface and Java application development. The description can be updated as more features are implemented.</p>
-                <div class="tags"><span>Java</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-                <div class="project-bottom">Focus · UI and Java learning ↗</div>
+                <div class="project-head"><span class="project-no">03</span><span class="project-type">ACADEMIC PROJECT</span></div>
+                <h3>Blood Bank Management System</h3>
+                <p>A project to organise blood donation information and blood availability records. Describe the database and features according to your actual implementation.</p>
+                <div class="tags"><span>HTML</span><span>CSS</span><span>Database</span></div>
+                <div class="project-bottom">Focus · Donation and blood records</div>
             </article>
-            <article class="project reveal">
-                <div class="project-head"><span class="project-no">03</span><span class="project-type">PRACTICAL CONCEPT</span></div>
-                <h3>Business Management Application</h3>
-                <p>A project concept for organising customer and product information with inventory and billing workflows for a small business.</p>
-                <div class="tags"><span>Java</span><span>SQL</span><span>HTML</span><span>CSS</span></div>
-                <div class="project-bottom">Focus · Business workflows ↗</div>
-            </article>
+<!-- Project 04: LaunchHire -->
+<article class="project reveal">
+    <div class="project-head">
+        <span class="project-no">04</span>
+        <span class="project-type">JOB PORTAL</span>
+    </div>
+    <h3>LaunchHire</h3>
+    <p>A job portal project designed to help candidates explore job opportunities and connect with potential employers. Update this description to reflect the features implemented in your project.</p>
+    <div class="tags">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
+    </div>
+    <div class="project-bottom">Focus · Job search and opportunities</div>
+</article>
+
+<!-- Project 05: PlacementPro -->
+<article class="project reveal">
+    <div class="project-head">
+        <span class="project-no">05</span>
+        <span class="project-type">PLACEMENT PLATFORM</span>
+    </div>
+    <h3>PlacementPro</h3>
+    <p>A separate placement management project focused on supporting placement-related activities. Update this description and technology stack to match your actual implementation.</p>
+    <div class="tags">
+        <span>Web Development</span>
+        <span>Database</span>
+        <span>JavaScript</span>
+    </div>
+    <div class="project-bottom">Focus · Placement management</div>
+</article>
+
         </div>
     </div>
 </section>
@@ -638,11 +604,32 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 25px 0; }
                 </p>
                 <a class="btn btn-primary" href="mailto:aishwaryarkarle@gmail.com">Email me ↗</a>
             </div>
+
+            <!-- Corrected contact links -->
             <div class="contact-links">
-                <a class="contact-item" href="aishwaryarkarle@gmail.com"><span>EMAIL</span><strong>aishwaryarkarle@gmail.com</strong></a>
-                <a class="contact-item" href="linkedin.com/in/aishwarya-karle" target="_blank" rel="noopener noreferrer"><span>LINKEDIN</span><strong>linkedin.com/in/aishwarya-karle ↗</strong></a>
-                <a class="contact-item" href="github.com/aish233" target="_blank" rel="noopener noreferrer"><span>GITHUB</span><strong>github.com/aish233 ↗</strong></a>
-                <div class="contact-item"><span>LOCATION</span><strong>Pune, Maharashtra, India</strong></div>
+                <a class="contact-item" href="mailto:aishwaryarkarle@gmail.com">
+                    <span>EMAIL</span>
+                    <strong>aishwaryarkarle@gmail.com ↗</strong>
+                </a>
+
+                <a class="contact-item"
+                   href="https://www.linkedin.com/in/aishwarya-karle/"
+                   target="_blank" rel="noopener noreferrer">
+                    <span>LINKEDIN</span>
+                    <strong>linkedin.com/in/aishwarya-karle ↗</strong>
+                </a>
+
+                <a class="contact-item"
+                   href="https://github.com/aishhwaryak"
+                   target="_blank" rel="noopener noreferrer">
+                    <span>GITHUB</span>
+                    <strong>github.com/aishhwaryak ↗</strong>
+                </a>
+
+                <div class="contact-item">
+                    <span>LOCATION</span>
+                    <strong>Pune, Maharashtra, India</strong>
+                </div>
             </div>
         </div>
     </div>
